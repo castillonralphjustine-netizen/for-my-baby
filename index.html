@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love</title>
+<meta name="description" content="A love story, made just for you.">
+
+<!-- Fonts: Playfair Display (display serif) + Quicksand (soft rounded body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     LOADER — brief page-load animation
+============================================================ -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-heart">
+    <svg viewBox="0 0 32 29" width="48" height="44"><path fill="currentColor" d="M16 29 2.6 16.6C-2 12.2-.6 4.6 5.4 1.9 9 .3 13.2 1.3 16 4.6 18.8 1.3 23 .3 26.6 1.9c6 2.7 7.4 10.3 2.8 14.7z"/></svg>
+  </div>
+  <p class="loader-text">opening our story…</p>
+</div>
+
+<!-- ============================================================
+     BACKGROUND LAYERS — shared across the whole site
+============================================================ -->
+<div class="bg-sky" aria-hidden="true">
+  <div class="bg-stars" id="bgStars"></div>
+  <div class="bg-moon"></div>
+  <div class="bg-petals" id="bgPetals"></div>
+  <div class="bg-hearts" id="bgHearts"></div>
+</div>
+
+<!-- cursor heart-trail + sparkle canvas -->
+<canvas id="cursorFx" aria-hidden="true"></canvas>
+
+<!-- scroll progress bar -->
+<div id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ============================================================
+     WELCOME / LANDING PAGE
+============================================================ -->
+<section id="welcome" aria-label="Welcome">
+  <div class="welcome-inner">
+    <p class="welcome-eyebrow">a little something for</p>
+    <h1 class="welcome-title">For My Love <span class="heart-pulse">❤️</span></h1>
+    <p class="welcome-subtitle">I made something special just for you.</p>
+    <button id="enterBtn" class="btn-romantic" type="button">
+      <span>Click here, my love</span> <span aria-hidden="true">❤️</span>
+    </button>
+  </div>
+  <div id="heartBurst" aria-hidden="true"></div>
+</section>
+
+<!-- ============================================================
+     MAIN SITE (hidden until the envelope opens)
+============================================================ -->
+<div id="site" hidden>
+
+  <!-- ---------- NAV ---------- -->
+  <nav id="mainNav" class="glass" aria-label="Main navigation">
+    <div class="nav-brand" id="navBrand">✦</div>
+    <ul class="nav-list" id="navList">
+      <li><a href="#home" data-label="Home">❤️<span>Home</span></a></li>
+      <li><a href="#letter" data-label="Love Letter">💌<span>Love Letter</span></a></li>
+      <li><a href="#gallery" data-label="Gallery">📸<span>Gallery</span></a></li>
+      <li><a href="#song" data-label="Our Song">🎵<span>Our Song</span></a></li>
+      <li><a href="#timer" data-label="Together Since">⏳<span>Together Since</span></a></li>
+      <li><a href="#memories" data-label="Our Memories">🌹<span>Our Memories</span></a></li>
+      <li><a href="#reasons" data-label="Reasons">💖<span>Reasons I Love You</span></a></li>
+      <li><a href="#openwhen" data-label="Open When">🔓<span>Open When</span></a></li>
+      <li><a href="#surprise" data-label="Surprise">🎁<span>Surprise</span></a></li>
+      <li><a href="#games" data-label="Games">🎮<span>Games</span></a></li>
+    </ul>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark and light mode">
+      <span id="themeIcon">🌙</span>
+    </button>
+  </nav>
+
+  <!-- ---------- HOME ---------- -->
+  <section id="home" class="section hero-section">
+    <div class="hero-hearts" aria-hidden="true"></div>
+    <div class="section-inner hero-inner">
+      <p class="eyebrow">hello, <span id="loverNameHero">love</span></p>
+      <h1 class="hero-title">You are my favorite person.</h1>
+      <p class="hero-text" id="heroParagraph">
+        Out of every road I could have walked, I'm endlessly grateful mine led to you.
+        You make ordinary days feel like poetry, and the quiet moments feel like home.
+        This little corner of the internet is my way of saying: I see you, I choose you,
+        and I love you — today and every day after.
+      </p>
+      <a href="#letter" class="btn-romantic btn-small">Read your letter <span aria-hidden="true">💌</span></a>
+    </div>
+  </section>
+
+  <!-- ---------- LOVE LETTER ---------- -->
+  <section id="letter" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">just for you</p>
+      <h2 class="section-title">A Love Letter</h2>
+      <p class="section-sub">Click the envelope to open it.</p>
+
+      <div class="envelope-wrap">
+        <button id="envelope" class="envelope" type="button" aria-expanded="false" aria-controls="letterPaper" aria-label="Open the love letter">
+          <span class="envelope-back"></span>
+          <span class="envelope-flap"></span>
+          <span class="envelope-front"></span>
+          <span class="envelope-seal">❤</span>
+        </button>
+
+        <div id="letterPaper" class="letter-paper" hidden>
+          <div class="letter-glow" aria-hidden="true"></div>
+          <p class="letter-greeting" id="letterGreeting">My dearest love,</p>
+          <p class="letter-body" id="letterTypedText"></p>
+          <p class="letter-signoff">Forever yours,<br><span id="letterSignature">your love</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- GALLERY ---------- -->
+  <section id="gallery" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">a picture is worth a thousand feelings</p>
+      <h2 class="section-title">Photo Gallery</h2>
+      <p class="section-sub">Every one of these is a moment I'd relive forever.</p>
+
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+
+    <!-- lightbox -->
+    <div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">✕</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
+      <figure class="lightbox-figure">
+        <img id="lightboxImg" src="" alt="">
+        <figcaption id="lightboxCaption"></figcaption>
+      </figure>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">›</button>
+    </div>
+  </section>
+
+  <!-- ---------- OUR SONG ---------- -->
+  <section id="song" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">the soundtrack to us</p>
+      <h2 class="section-title">Our Song</h2>
+
+      <div class="player glass">
+        <div class="player-eq" id="playerEq" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="player-art-wrap">
+          <div class="player-art" id="playerArt">
+            <img src="assets/images/album-cover.jpg" alt="" id="albumCoverImg" onerror="this.style.display='none'">
+            <span class="player-art-fallback">🎵</span>
+          </div>
+        </div>
+        <h3 class="player-title" id="songTitle">Our Song</h3>
+        <p class="player-artist" id="songArtist">for you, from me</p>
+
+        <audio id="audioEl" preload="metadata">
+          <source id="audioSource" src="" type="audio/mpeg">
+        </audio>
+
+        <div class="player-progress">
+          <span class="player-time" id="playerCurrent">0:00</span>
+          <input type="range" id="progressBar" class="progress-bar" value="0" min="0" max="100" step="0.1" aria-label="Song progress">
+          <span class="player-time" id="playerDuration">0:00</span>
+        </div>
+
+        <div class="player-controls">
+          <button id="playPauseBtn" class="player-play-btn" type="button" aria-label="Play">
+            <svg id="iconPlay" viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+            <svg id="iconPause" viewBox="0 0 24 24" width="22" height="22" hidden><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+          <div class="player-volume">
+            <span aria-hidden="true">🔊</span>
+            <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="0.7" aria-label="Volume">
+          </div>
+        </div>
+        <p class="player-hint">Add your song file at <code>assets/music/our-song.mp3</code> to hear it play.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- TOGETHER SINCE / TIMER ---------- -->
+  <section id="timer" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">since the day it all began</p>
+      <h2 class="section-title">We've Been Together For</h2>
+
+      <div class="timer-grid" id="timerGrid">
+        <div class="timer-card glass"><span class="timer-num" id="tYears">0</span><span class="timer-label">Years</span></div>
+        <div class="timer-card glass"><span class="timer-num" id="tMonths">0</span><span class="timer-label">Months</span></div>
+        <div class="timer-card glass"><span class="timer-num" id="tDays">0</span><span class="timer-label">Days</span></div>
+        <div class="timer-card glass"><span class="timer-num" id="tHours">0</span><span class="timer-label">Hours</span></div>
+        <div class="timer-card glass"><span class="timer-num" id="tMinutes">0</span><span class="timer-label">Minutes</span></div>
+        <div class="timer-card glass"><span class="timer-num" id="tSeconds">0</span><span class="timer-label">Seconds</span></div>
+      </div>
+      <p class="timer-since" id="timerSince"></p>
+    </div>
+  </section>
+
+  <!-- ---------- OUR MEMORIES / TIMELINE ---------- -->
+  <section id="memories" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">chapters of our story</p>
+      <h2 class="section-title">Our Memories</h2>
+
+      <div class="timeline" id="timelineWrap"></div>
+    </div>
+  </section>
+
+  <!-- ---------- REASONS I LOVE YOU ---------- -->
+  <section id="reasons" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">tap the heart, one reason at a time</p>
+      <h2 class="section-title">Reasons I Love You</h2>
+      <p class="reasons-count"><span id="reasonsCount">0</span> of <span id="reasonsTotal">0</span> revealed</p>
+
+      <button id="reasonHeartBtn" class="reason-heart-btn" type="button" aria-label="Reveal a reason I love you">
+        <svg viewBox="0 0 32 29" width="72" height="66"><path fill="currentColor" d="M16 29 2.6 16.6C-2 12.2-.6 4.6 5.4 1.9 9 .3 13.2 1.3 16 4.6 18.8 1.3 23 .3 26.6 1.9c6 2.7 7.4 10.3 2.8 14.7z"/></svg>
+      </button>
+
+      <div class="reasons-list" id="reasonsList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ---------- OPEN WHEN ---------- -->
+  <section id="openwhen" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">for whenever you need it</p>
+      <h2 class="section-title">Open When...</h2>
+
+      <div class="openwhen-grid">
+        <button class="openwhen-card glass" data-key="happy" type="button">
+          <span class="openwhen-icon">❤️</span>
+          <span>Open when you're happy</span>
+        </button>
+        <button class="openwhen-card glass" data-key="miss" type="button">
+          <span class="openwhen-icon">💙</span>
+          <span>Open when you miss me</span>
+        </button>
+        <button class="openwhen-card glass" data-key="sad" type="button">
+          <span class="openwhen-icon">🌸</span>
+          <span>Open when you're sad</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="openwhenModal" class="modal" hidden role="dialog" aria-modal="true">
+      <div class="modal-card glass">
+        <button class="modal-close" id="openwhenClose" aria-label="Close message">✕</button>
+        <span class="modal-icon" id="openwhenIcon"></span>
+        <p class="modal-text" id="openwhenText"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SECRET SURPRISE ---------- -->
+  <section id="surprise" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">shh… it's a secret</p>
+      <h2 class="section-title">Secret Surprise</h2>
+      <p class="section-sub">Hint: our special date ❤️</p>
+
+      <form id="surpriseForm" class="surprise-form" autocomplete="off">
+        <label for="surprisePassword" class="sr-only">Enter the password</label>
+        <input type="text" id="surprisePassword" placeholder="Enter the password…" inputmode="text">
+        <button type="submit" class="btn-romantic btn-small">Unlock <span aria-hidden="true">🔓</span></button>
+      </form>
+      <p id="surpriseError" class="surprise-error" role="alert"></p>
+    </div>
+
+    <div id="surpriseReveal" class="surprise-reveal" hidden>
+      <div class="surprise-reveal-inner glass">
+        <h3>You found it. 🎉</h3>
+        <p id="surpriseMessage"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- MINI GAMES ---------- -->
+  <section id="games" class="section">
+    <div class="section-inner">
+      <p class="eyebrow">just for fun</p>
+      <h2 class="section-title">Mini Games</h2>
+
+      <div class="game-tabs" role="tablist">
+        <button class="game-tab is-active" data-game="catch" role="tab" aria-selected="true">Catch the Hearts</button>
+        <button class="game-tab" data-game="memory" role="tab" aria-selected="false">Memory Match</button>
+        <button class="game-tab" data-game="forever" role="tab" aria-selected="false">Will You Be My Forever?</button>
+      </div>
+
+      <!-- Catch the Hearts -->
+      <div class="game-panel is-active" id="game-catch" role="tabpanel">
+        <div class="game-hud">
+          <span>Score: <strong id="catchScore">0</strong></span>
+          <span>Time: <strong id="catchTime">30</strong>s</span>
+          <button id="catchStart" class="btn-romantic btn-small" type="button">Start</button>
+        </div>
+        <div class="catch-field" id="catchField" aria-hidden="true"></div>
+      </div>
+
+      <!-- Memory Matching -->
+      <div class="game-panel" id="game-memory" role="tabpanel">
+        <div class="game-hud">
+          <span>Moves: <strong id="memoryMoves">0</strong></span>
+          <button id="memoryRestart" class="btn-romantic btn-small" type="button">Restart</button>
+        </div>
+        <div class="memory-grid" id="memoryGrid"></div>
+        <p id="memoryWin" class="memory-win" hidden>You matched every pair — just like us. 💞</p>
+      </div>
+
+      <!-- Will You Be My Forever -->
+      <div class="game-panel" id="game-forever" role="tabpanel">
+        <div class="forever-stage" id="foreverStage">
+          <p class="forever-question" id="foreverQuestion">Will you be my forever?</p>
+          <div class="forever-btns">
+            <button id="foreverYes" class="btn-romantic" type="button">Yes</button>
+            <button id="foreverNo" class="forever-no" type="button" style="position:relative;">No</button>
+          </div>
+          <p class="forever-taunt" id="foreverTaunt" aria-live="polite"></p>
+        </div>
+        <div class="forever-ending" id="foreverEnding" hidden>
+          <p>I knew it. Forever it is. 💍</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FOOTER ---------- -->
+  <footer class="site-footer">
+    <div class="footer-quote" id="footerQuote"></div>
+    <p class="footer-line">Made with <span aria-hidden="true">❤️</span> by <span id="footerYourName">your love</span>, for <span id="footerLoverName">you</span>.</p>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">↑</button>
+</div>
+
+<!-- floating love quote toast -->
+<div id="quoteToast" class="quote-toast" hidden></div>
+
+<script src="script.js"></script>
+</body>
+</html>
